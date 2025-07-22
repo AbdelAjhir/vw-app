@@ -1,12 +1,28 @@
 {
   "name": "frontend-challenge",
+  "description": "VW DIGITAL:HUB Frontend technical test",
+  "author": "Abdelbari Ajhir",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AbdelAjhir/frontend-challenge.git"
+  },
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node ./scripts/checkEnv.mjs && vite",
+    "clean": "rm -rf dist node_modules/.vite",
+    "format": "prettier --check \"src/**/*.{ts,tsx,js,jsx,scss}\"",
+    "format:fix": "prettier --write \"src/**/*.{ts,tsx,js,jsx,scss}\"",
+    "lint": "eslint . --ext ts,tsx --max-warnings=0",
+    "lint:fix": "eslint . --ext ts,tsx --max-warnings=0 --fix",
+    "typecheck": "tsc --build --noEmit",
+    "test": "vitest",
+    "prepare": "husky",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "check:all": "npm run format && npm run lint && npm run typecheck",
+    "fix:all": "npm run format:fix && npm run lint:fix",
+    "validate": "npm run check:all && npm run build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,16 +30,42 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.30.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
     "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-dom": "^1.52.3",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-react-x": "^1.52.3",
     "globals": "^16.3.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.35.1",
-    "vite": "^7.0.4"
+    "typescript-eslint": "^8.38.0",
+    "vite": "^7.0.4",
+    "vitest": "^3.2.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss,json,md}": [
+      "prettier --write"
+    ]
   }
 }
