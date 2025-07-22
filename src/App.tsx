@@ -1,11 +1,20 @@
-import { useState } from "react";
-
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { useGetMoviesQuery } from "./store/movieApi";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const {
+    data: moviesResponse,
+    isLoading,
+    error,
+  } = useGetMoviesQuery({
+    _page: 1,
+    _limit: 10,
+  });
+
+  const movies = moviesResponse?.data || [];
+  const totalCount = moviesResponse?.totalCount || 0;
 
   return (
     <>
@@ -17,15 +26,36 @@ function App() {
           <img alt="React logo" className="logo react" src={reactLogo} />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Vite + React + Redux Toolkit</h1>
+
       <div className="card">
-        <button type="button" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <h2>RTK Query Test</h2>
+        {isLoading && <p>Loading movies...</p>}
+        {error && (
+          <p style={{ color: "red" }}>Error: {JSON.stringify(error)}</p>
+        )}
+        {!isLoading && !error && (
+          <div>
+            <p>Total movies: {totalCount}</p>
+            <p>Loaded movies: {movies.length}</p>
+            {movies.length > 0 && (
+              <div>
+                <h3>First movie:</h3>
+                <p>
+                  <strong>Title:</strong> {movies[0].title}
+                </p>
+                <p>
+                  <strong>Release Date:</strong> {movies[0].release_date}
+                </p>
+                <p>
+                  <strong>Overview:</strong> {movies[0].overview}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
