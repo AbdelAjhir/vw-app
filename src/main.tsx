@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 
 import { Provider } from "react-redux";
 
+import { ThemeProvider } from "next-themes";
 import { createRoot } from "react-dom/client";
 
 import "./index.css";
@@ -12,7 +13,14 @@ import { store } from "./store";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <Router />
+      <ThemeProvider
+        disableTransitionOnChange
+        enableSystem
+        attribute="class"
+        defaultTheme="system"
+      >
+        <Router />
+      </ThemeProvider>
     </Provider>
   </StrictMode>
 );
