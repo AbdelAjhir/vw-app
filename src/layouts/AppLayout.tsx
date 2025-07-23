@@ -1,17 +1,16 @@
 import { Outlet } from "react-router-dom";
 
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
 const AppLayout = () => {
   return (
-    <div className="flex flex-col min-h-svh">
-      <header className="flex items-center justify-between">
-        <h1>Header</h1>
-      </header>
+    <div className="flex min-h-svh flex-col">
+      <Header />
       <main className="flex-1">
         <Outlet />
       </main>
-      <footer className="flex items-center justify-between">
-        <h1>Footer</h1>
-      </footer>
+      <Footer />
     </div>
   );
 };
