@@ -5,14 +5,14 @@ import { Provider } from "react-redux";
 import { createRoot } from "react-dom/client";
 
 import "./index.css";
-import App from "./App.tsx";
+import Router from "./router";
 import { store } from "./store";
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <Router />
     </Provider>
   </StrictMode>
 );
