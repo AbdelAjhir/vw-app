@@ -10,7 +10,7 @@ import reactDom from "eslint-plugin-react-dom";
 
 export default tseslint.config([
   {
-    ignores: ["dist/**", "node_modules/**", "coverage/**"],
+    ignores: ["dist/**", "node_modules/**", "coverage/**", "vite.config.ts"],
   },
   {
     files: ["**/*.{ts,tsx}"],
@@ -128,6 +128,13 @@ export default tseslint.config([
           extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
       },
+      "import/ignore": [
+        "@tailwindcss/vite",
+        "tailwindcss",
+        "\\.css$",
+        "\\.scss$",
+        "\\.sass$",
+      ],
     },
     extends: [
       reactX.configs["recommended-typescript"],
