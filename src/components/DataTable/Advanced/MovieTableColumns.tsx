@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { formatDate } from "@/helpers";
 import type { Movie } from "@/types/movie";
 
 import {
@@ -17,7 +18,6 @@ import {
   DateCell,
   RatingCell,
   LanguageCell,
-  TypeCell,
 } from "./MovieTableComponents";
 
 interface ColumnsProps {
@@ -43,7 +43,9 @@ export const createColumns = ({
     header: ({ column }) => (
       <SortableHeader column={column}>Release Date</SortableHeader>
     ),
-    cell: ({ row }) => <DateCell value={row.getValue("release_date")} />,
+    cell: ({ row }) => (
+      <DateCell value={formatDate(row.getValue("release_date"))} />
+    ),
   },
   {
     accessorKey: "vote_average",
@@ -61,21 +63,18 @@ export const createColumns = ({
     ),
     cell: ({ row }) => (
       <div className="font-medium">
-        {parseFloat(row.getValue("popularity")).toFixed(0)}
+        {Math.floor(parseFloat(row.getValue("popularity")))}
       </div>
     ),
   },
   {
     accessorKey: "original_language",
-    header: "Language",
+    header: ({ column }) => (
+      <SortableHeader column={column}>Language</SortableHeader>
+    ),
     cell: ({ row }) => (
       <LanguageCell value={row.getValue("original_language")} />
     ),
-  },
-  {
-    accessorKey: "adult",
-    header: "Type",
-    cell: ({ row }) => <TypeCell value={row.getValue("adult")} />,
   },
   {
     id: "actions",

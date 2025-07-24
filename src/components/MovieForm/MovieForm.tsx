@@ -205,7 +205,7 @@ const MovieForm = ({
                     setFormData({ ...formData, adult: e.target.checked })
                   }
                 />
-                <span className="text-sm font-medium">Adult Content</span>
+                <span className="text-sm font-medium">For Family</span>
               </label>
 
               <label className="flex items-center gap-2">

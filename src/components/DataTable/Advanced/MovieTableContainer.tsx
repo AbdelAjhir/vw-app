@@ -1,10 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 
-import { Plus, AlertTriangle } from "lucide-react";
-
+import { LoadingState, ErrorState } from "@/components/LoadingErrorStates";
 import MovieForm from "@/components/MovieForm/MovieForm";
-import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import SectionHeader from "@/components/SectionHeader";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   useGetMoviesQuery,
@@ -121,24 +119,11 @@ const AdvancedMovieTableContainer = () => {
 
   // Loading and error states
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <Spinner />
-      </div>
-    );
+    return <LoadingState />;
   }
 
   if (error) {
-    return (
-      <div className="flex items-center justify-center p-8">
-        <div className="text-center">
-          <AlertTriangle className="mx-auto mb-4 h-12 w-12 text-red-500" />
-          <p className="text-lg text-red-500">
-            Error loading movies. Please try again.
-          </p>
-        </div>
-      </div>
-    );
+    return <ErrorState />;
   }
 
   const movies = moviesResponse?.data || [];
@@ -153,21 +138,11 @@ const AdvancedMovieTableContainer = () => {
   return (
     <div className="container mx-auto px-3 py-10">
       {/* Header */}
-      <div className="mb-6 flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <div>
-          <h1 className="text-3xl font-bold">Movies Database</h1>
-          <p className="text-muted-foreground mt-2">
-            Browse, search, and manage your movie collection
-          </p>
-        </div>
-        <Button
-          className="flex w-full items-center gap-2 sm:w-fit"
-          onClick={handleAddMovie}
-        >
-          <Plus className="h-4 w-4" />
-          Add Movie
-        </Button>
-      </div>
+      <SectionHeader
+        description="Server side table with pagination, sorting, and debounced search (REST API + TanStack Table)"
+        title="Advanced Movies Table"
+        onAddClick={handleAddMovie}
+      />
 
       {/* Table */}
       <MovieTable
