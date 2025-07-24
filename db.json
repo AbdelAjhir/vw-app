@@ -1,8 +1,8 @@
 {
   "movies": [
     {
-      "title": "M3GAN 3.0",
-      "original_title": "M3GAN 3.0",
+      "title": "M3GAN 2.0",
+      "original_title": "M3GAN 2.0",
       "overview": "After the underlying tech for M3GAN is stolen and misused by a powerful defense contractor to create a military-grade weapon known as Amelia, M3GAN's creator Gemma realizes that the only option is to resurrect M3GAN and give her a few upgrades, making her faster, stronger, and more lethal.",
       "release_date": "2025-06-25",
       "vote_average": 7.7,
@@ -303,22 +303,6 @@
       "video": false,
       "vote_average": 7.6,
       "vote_count": 10
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/9A0wQG38VdEu3DYh8HzXKXKhA6g.jpg",
-      "genre_ids": [12, 35, 10751],
-      "id": 1287536,
-      "original_language": "en",
-      "original_title": "Dora and the Search for Sol Dorado",
-      "overview": "Dora, Diego, and their new friends trek through the perilous dangers of the Amazonian jungle in search of the ancient and powerful treasure of Sol Dorado to keep it out of enemy hands.",
-      "popularity": 120.456,
-      "poster_path": "/r3d6u2n7iPoWNsSWwlJJWrDblOH.jpg",
-      "release_date": "2025-07-02",
-      "title": "Dora and the Search for Sol Dorado",
-      "video": false,
-      "vote_average": 6.882,
-      "vote_count": 68
     },
     {
       "adult": false,

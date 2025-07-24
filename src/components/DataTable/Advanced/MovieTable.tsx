@@ -7,10 +7,10 @@ import {
   useReactTable,
   type SortingState,
 } from "@tanstack/react-table";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import SearchBar from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -130,18 +130,11 @@ export const MovieTable = <TData, TValue>({
   return (
     <div className="space-y-4">
       {/* Search Bar */}
-      <div className="flex items-center gap-2">
-        <div className="relative max-w-sm flex-1">
-          <Search className="text-muted-foreground absolute top-3 left-2 h-4 w-4" />
-          <Input
-            className="pl-8"
-            name="search"
-            placeholder="Search movies..."
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-          />
-        </div>
-      </div>
+      <SearchBar
+        placeholder="Search movies..."
+        searchQuery={searchQuery}
+        onSearchChange={onSearchChange}
+      />
 
       {/* Table */}
       <div className="rounded-md border">
