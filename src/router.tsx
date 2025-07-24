@@ -4,8 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Spinner } from "@/components/ui/spinner";
 import AppLayout from "@/layouts/AppLayout";
+import HomePage from "@/pages/HomePage";
 
-const HomePage = lazy(() => import("@/pages/HomePage"));
 const DetailPage = lazy(() => import("@/pages/DetailPage"));
 const NotFoundPage = lazy(() => import("@/pages/NotFoundPage"));
 
