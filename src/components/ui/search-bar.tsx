@@ -7,7 +7,7 @@ interface SearchBarProps {
   className?: string;
 }
 
-const SearchBar = ({
+export const SearchBar = ({
   searchQuery,
   onSearchChange,
   placeholder,
@@ -33,5 +33,3 @@ const SearchBar = ({
     )}
   </div>
 );
-
-export default SearchBar;

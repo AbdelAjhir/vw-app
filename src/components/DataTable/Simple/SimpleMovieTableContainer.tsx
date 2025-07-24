@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { LoadingState, ErrorState } from "@/components/LoadingErrorStates";
 import MovieForm from "@/components/MovieForm/MovieForm";
-import SectionHeader from "@/components/SectionHeader";
+import { LoadingState, ErrorState } from "@/components/ui/loading-error-states";
+import { SectionHeader } from "@/components/ui/section-header";
 import {
   useGetMoviesQuery,
   useCreateMovieMutation,

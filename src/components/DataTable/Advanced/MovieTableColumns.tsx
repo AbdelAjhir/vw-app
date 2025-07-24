@@ -23,11 +23,13 @@ import {
 interface ColumnsProps {
   onEdit: (_movie: Movie) => void;
   onDelete: (_movieId: number) => void;
+  onView: (_movieId: number) => void;
 }
 
 export const createColumns = ({
   onEdit,
   onDelete,
+  onView,
 }: ColumnsProps): ColumnDef<Movie>[] => [
   {
     accessorKey: "title",
@@ -92,18 +94,22 @@ export const createColumns = ({
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => window.open(`/movie/${movie.id}`, "_blank")}
+              className="cursor-pointer"
+              onClick={() => onView(movie.id)}
             >
               <Eye className="mr-2 h-4 w-4" />
               View Details
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => onEdit(movie)}>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => onEdit(movie)}
+            >
               <Edit className="mr-2 h-4 w-4" />
               Edit Movie
             </DropdownMenuItem>
             <DropdownMenuItem
-              className="text-red-600"
+              className="cursor-pointer text-red-600 hover:text-red-500 dark:text-red-600 dark:hover:text-red-500"
               onClick={() => onDelete(movie.id)}
             >
               <Trash2 className="mr-2 h-4 w-4" />

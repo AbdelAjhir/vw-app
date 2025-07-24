@@ -1,9 +1,11 @@
 import { useState, useMemo } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { Eye, Edit, Trash2 } from "lucide-react";
 
-import SearchBar from "@/components/SearchBar";
 import { ActionButton } from "@/components/ui/action-button";
+import { SearchBar } from "@/components/ui/search-bar";
 import { TableCell } from "@/components/ui/table-cell";
 import { TableHeader } from "@/components/ui/table-header";
 import { TableRow } from "@/components/ui/table-row";
@@ -25,6 +27,7 @@ interface MovieTableProps {
 }
 
 const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -140,9 +143,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                   <TableCell>
                     <ActionButton
                       variant="view"
-                      onClick={() =>
-                        window.open(`/movie/${movie.id}`, "_blank")
-                      }
+                      onClick={() => navigate(`/movie/${movie.id}`)}
                     >
                       <Eye className="mr-1 inline h-3 w-3" />
                       View
