@@ -9,8 +9,8 @@ import {
 } from "@tanstack/react-table";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import SearchBar from "@/components/SearchBar";
 import { Button } from "@/components/ui/button";
+import { SearchBar } from "@/components/ui/search-bar";
 import {
   Select,
   SelectContent,

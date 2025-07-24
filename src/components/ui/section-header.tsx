@@ -9,7 +9,7 @@ interface SectionHeaderProps {
   addButtonText?: string;
 }
 
-const SectionHeader = ({
+export const SectionHeader = ({
   title,
   description,
   onAddClick,
@@ -29,5 +29,3 @@ const SectionHeader = ({
     </Button>
   </div>
 );
-
-export default SectionHeader;

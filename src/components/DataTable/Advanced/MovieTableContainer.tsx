@@ -1,8 +1,10 @@
 import { useState, useEffect, useMemo } from "react";
 
-import { LoadingState, ErrorState } from "@/components/LoadingErrorStates";
+import { useNavigate } from "react-router-dom";
+
 import MovieForm from "@/components/MovieForm/MovieForm";
-import SectionHeader from "@/components/SectionHeader";
+import { LoadingState, ErrorState } from "@/components/ui/loading-error-states";
+import { SectionHeader } from "@/components/ui/section-header";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   useGetMoviesQuery,
@@ -16,6 +18,8 @@ import { MovieTable } from "./MovieTable";
 import { createColumns } from "./MovieTableColumns";
 
 const AdvancedMovieTableContainer = () => {
+  const navigate = useNavigate();
+
   // Form state
   const [showForm, setShowForm] = useState(false);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
@@ -117,6 +121,10 @@ const AdvancedMovieTableContainer = () => {
     setSortOrder(order);
   };
 
+  const handleViewMovie = (movieId: number) => {
+    navigate(`/movie/${movieId}`);
+  };
+
   // Loading and error states
   if (isLoading) {
     return <LoadingState />;
@@ -133,6 +141,7 @@ const AdvancedMovieTableContainer = () => {
   const columns = createColumns({
     onEdit: handleEditMovie,
     onDelete: handleDeleteMovie,
+    onView: handleViewMovie,
   });
 
   return (
