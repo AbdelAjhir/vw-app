@@ -10,17 +10,17 @@ export const movieApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Movie"],
+  tagTypes: ["Movies"],
   endpoints: (builder) => ({
-    // Get all movies with pagination
+    // Get all movies with search, sort, and pagination
     getMovies: builder.query<
       MoviesResponse,
       {
-        _page?: number;
-        _limit?: number;
         q?: string;
         _sort?: string;
         _order?: "asc" | "desc";
+        _page?: number;
+        _limit?: number;
       }
     >({
       query: (params) => ({
@@ -33,19 +33,13 @@ export const movieApi = createApi({
           ? Number(meta.response.headers.get("x-total-count"))
           : response.length,
       }),
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.data.map(({ id }) => ({ type: "Movie" as const, id })),
-              { type: "Movie", id: "LIST" },
-            ]
-          : [{ type: "Movie", id: "LIST" }],
+      providesTags: [{ type: "Movies" }],
     }),
 
     // Get a single movie by ID
     getMovie: builder.query<Movie, number>({
       query: (id) => `/movies/${id}`,
-      providesTags: (_result, _error, id) => [{ type: "Movie", id }],
+      providesTags: [{ type: "Movies" }],
     }),
 
     // Create a new movie
@@ -55,7 +49,7 @@ export const movieApi = createApi({
         method: "POST",
         body: movie,
       }),
-      invalidatesTags: [{ type: "Movie", id: "LIST" }],
+      invalidatesTags: [{ type: "Movies" }],
     }),
 
     // Update an existing movie
@@ -66,10 +60,7 @@ export const movieApi = createApi({
           method: "PUT",
           body: movie,
         }),
-        invalidatesTags: (_result, _error, { id }) => [
-          { type: "Movie", id },
-          { type: "Movie", id: "LIST" },
-        ],
+        invalidatesTags: [{ type: "Movies" }],
       }
     ),
 
@@ -79,10 +70,7 @@ export const movieApi = createApi({
         url: `/movies/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (_result, _error, id) => [
-        { type: "Movie", id },
-        { type: "Movie", id: "LIST" },
-      ],
+      invalidatesTags: [{ type: "Movies" }],
     }),
 
     // Search movies by any field
@@ -95,13 +83,7 @@ export const movieApi = createApi({
         data: response,
         totalCount: response.length,
       }),
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.data.map(({ id }) => ({ type: "Movie" as const, id })),
-              { type: "Movie", id: "SEARCH" },
-            ]
-          : [{ type: "Movie", id: "SEARCH" }],
+      providesTags: [{ type: "Movies" }],
     }),
   }),
 });
