@@ -18,7 +18,7 @@ export const TableHeader = ({
   className = "",
 }: TableHeaderProps) => {
   const baseClasses =
-    "cursor-pointer border border-gray-300 p-2 text-left transition-colors hover:bg-gray-200 dark:border-gray-600 dark:hover:bg-gray-700";
+    "text-sm sm:text-base cursor-pointer border border-gray-300 p-2 text-left transition-colors hover:bg-gray-200 dark:border-gray-600 dark:hover:bg-gray-700";
 
   return (
     <th className={`${baseClasses} ${className}`} onClick={onClick}>

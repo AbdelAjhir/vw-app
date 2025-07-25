@@ -7,7 +7,7 @@ interface TableCellProps {
 
 export const TableCell = ({ children, className = "" }: TableCellProps) => {
   const baseClasses =
-    "border border-gray-300 p-2 dark:border-gray-600 dark:text-white";
+    "border border-gray-300 p-2 h-full dark:border-gray-600 dark:text-white";
 
   return <td className={`${baseClasses} ${className}`}>{children}</td>;
 };
