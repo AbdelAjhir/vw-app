@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import type { Movie } from "@/types/movie";
+import type { Movie, MovieFormData } from "@/types/movie";
 
 interface MovieFormProps {
   open: boolean;
@@ -27,17 +27,19 @@ const MovieForm = ({
   onSubmit,
   isLoading,
 }: MovieFormProps) => {
-  const [formData, setFormData] = useState({
-    title: movie?.title || "",
-    original_title: movie?.original_title || "",
-    overview: movie?.overview || "",
-    release_date: movie?.release_date || "",
-    vote_average: movie?.vote_average?.toString() || "",
-    popularity: movie?.popularity?.toString() || "",
-    original_language: movie?.original_language || "",
-    adult: !movie?.adult || false,
-    video: movie?.video || false,
+  const [formData, setFormData] = useState<MovieFormData>({
+    title: "",
+    original_title: "",
+    overview: "",
+    release_date: "",
+    vote_average: "",
+    popularity: "",
+    original_language: "",
+    adult: false,
+    video: false,
   });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Reset form when movie changes
   useEffect(() => {
@@ -46,25 +48,72 @@ const MovieForm = ({
       original_title: movie?.original_title || "",
       overview: movie?.overview || "",
       release_date: movie?.release_date || "",
-      vote_average: movie?.vote_average?.toString() || "",
-      popularity: movie?.popularity?.toString() || "",
+      vote_average: movie?.vote_average?.toFixed(1) || "",
+      popularity: movie?.popularity?.toFixed(0) || "",
       original_language: movie?.original_language || "",
-      adult: !movie?.adult || false,
+      adult: movie?.adult || false,
       video: movie?.video || false,
     });
+    setErrors({});
   }, [movie]);
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.title.trim()) {
+      newErrors.title = "Title is required";
+    }
+
+    if (!formData.overview.trim()) {
+      newErrors.overview = "Overview is required";
+    }
+
+    if (!formData.release_date) {
+      newErrors.release_date = "Release date is required";
+    }
+
+    if (
+      !formData.vote_average ||
+      parseFloat(formData.vote_average) < 0 ||
+      parseFloat(formData.vote_average) > 10
+    ) {
+      newErrors.vote_average = "Rating must be between 0 and 10";
+    }
+
+    if (!formData.popularity || parseFloat(formData.popularity) < 0) {
+      newErrors.popularity = "Popularity must be a positive number";
+    } else if (parseFloat(formData.popularity) > 1000) {
+      newErrors.popularity = "Popularity must be less than 1000";
+    }
+
+    if (!formData.original_language.trim()) {
+      newErrors.original_language = "Language is required";
+    } else if (formData.original_language.length !== 2) {
+      newErrors.original_language =
+        "Language must be 2 characters (e.g., en, es, fr)";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     onSubmit({
       title: formData.title,
       original_title: formData.original_title,
       overview: formData.overview,
       release_date: formData.release_date,
-      vote_average: parseFloat(formData.vote_average) || 0,
-      popularity: parseFloat(formData.popularity) || 0,
+      vote_average:
+        parseFloat(parseFloat(formData.vote_average).toFixed(1)) || 0,
+      popularity: parseFloat(parseFloat(formData.popularity).toFixed(2)) || 0,
       original_language: formData.original_language,
-      adult: !formData.adult,
+      adult: formData.adult,
       video: formData.video,
       backdrop_path: movie?.backdrop_path || "",
       poster_path: movie?.poster_path || "",
@@ -94,13 +143,15 @@ const MovieForm = ({
             <div>
               <label className="mb-2 block text-sm font-medium">Title</label>
               <Input
-                required
                 placeholder="Movie title"
                 value={formData.title}
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
               />
+              {errors.title && (
+                <p className="mt-1 text-sm text-red-500">{errors.title}</p>
+              )}
             </div>
 
             <div>
@@ -120,7 +171,6 @@ const MovieForm = ({
           <div>
             <label className="mb-2 block text-sm font-medium">Overview</label>
             <textarea
-              required
               className="h-24 w-full resize-none rounded-md border border-gray-300 p-3"
               placeholder="Movie overview"
               value={formData.overview}
@@ -128,6 +178,9 @@ const MovieForm = ({
                 setFormData({ ...formData, overview: e.target.value })
               }
             />
+            {errors.overview && (
+              <p className="mt-1 text-sm text-red-500">{errors.overview}</p>
+            )}
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -136,21 +189,22 @@ const MovieForm = ({
                 Release Date
               </label>
               <Input
-                required
                 type="date"
                 value={formData.release_date}
                 onChange={(e) =>
                   setFormData({ ...formData, release_date: e.target.value })
                 }
               />
+              {errors.release_date && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.release_date}
+                </p>
+              )}
             </div>
 
             <div>
               <label className="mb-2 block text-sm font-medium">Rating</label>
               <Input
-                required
-                max="10"
-                min="0"
                 placeholder="0.0"
                 step="0.1"
                 type="number"
@@ -159,6 +213,11 @@ const MovieForm = ({
                   setFormData({ ...formData, vote_average: e.target.value })
                 }
               />
+              {errors.vote_average && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.vote_average}
+                </p>
+              )}
             </div>
 
             <div>
@@ -166,15 +225,16 @@ const MovieForm = ({
                 Popularity
               </label>
               <Input
-                required
-                placeholder="0.0"
-                step="0.1"
+                placeholder="100"
                 type="number"
                 value={formData.popularity}
                 onChange={(e) =>
                   setFormData({ ...formData, popularity: e.target.value })
                 }
               />
+              {errors.popularity && (
+                <p className="mt-1 text-sm text-red-500">{errors.popularity}</p>
+              )}
             </div>
           </div>
 
@@ -182,7 +242,6 @@ const MovieForm = ({
             <div>
               <label className="mb-2 block text-sm font-medium">Language</label>
               <Input
-                required
                 maxLength={2}
                 placeholder="en"
                 value={formData.original_language}
@@ -193,6 +252,11 @@ const MovieForm = ({
                   })
                 }
               />
+              {errors.original_language && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.original_language}
+                </p>
+              )}
             </div>
 
             <div className="flex items-center gap-4">
@@ -205,7 +269,7 @@ const MovieForm = ({
                     setFormData({ ...formData, adult: e.target.checked })
                   }
                 />
-                <span className="text-sm font-medium">For Family</span>
+                <span className="text-sm font-medium">Mature Content</span>
               </label>
 
               <label className="flex items-center gap-2">

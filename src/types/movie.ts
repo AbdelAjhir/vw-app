@@ -15,6 +15,18 @@ export interface Movie {
   vote_count: number;
 }
 
+export interface MovieFormData {
+  title: string;
+  original_title: string;
+  overview: string;
+  release_date: string;
+  vote_average: string;
+  popularity: string;
+  original_language: string;
+  adult: boolean;
+  video: boolean;
+}
+
 export interface MoviesResponse {
   data: Movie[];
   totalCount?: number;
