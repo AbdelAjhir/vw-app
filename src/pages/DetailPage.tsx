@@ -58,6 +58,7 @@ const DetailPage = () => {
               <img
                 alt={movie.title}
                 className="h-auto w-full object-cover"
+                loading="lazy"
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 onError={(e) => {
                   e.currentTarget.src = "https://placehold.co/500x750";
