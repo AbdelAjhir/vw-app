@@ -35,7 +35,7 @@ const MovieForm = ({
     vote_average: movie?.vote_average?.toString() || "",
     popularity: movie?.popularity?.toString() || "",
     original_language: movie?.original_language || "",
-    adult: movie?.adult || false,
+    adult: !movie?.adult || false,
     video: movie?.video || false,
   });
 
@@ -49,7 +49,7 @@ const MovieForm = ({
       vote_average: movie?.vote_average?.toString() || "",
       popularity: movie?.popularity?.toString() || "",
       original_language: movie?.original_language || "",
-      adult: movie?.adult || false,
+      adult: !movie?.adult || false,
       video: movie?.video || false,
     });
   }, [movie]);
@@ -64,7 +64,7 @@ const MovieForm = ({
       vote_average: parseFloat(formData.vote_average) || 0,
       popularity: parseFloat(formData.popularity) || 0,
       original_language: formData.original_language,
-      adult: formData.adult,
+      adult: !formData.adult,
       video: formData.video,
       backdrop_path: movie?.backdrop_path || "",
       poster_path: movie?.poster_path || "",

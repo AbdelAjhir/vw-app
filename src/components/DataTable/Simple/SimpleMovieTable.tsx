@@ -50,13 +50,8 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
         popularity: movie.popularity.toString(),
       };
 
-      // Also search the original date format for better date searching
-      const originalDate = movie.release_date;
-
-      return (
-        Object.values(searchableFields).some((value) =>
-          value.toLowerCase().includes(query)
-        ) || originalDate.toLowerCase().includes(query)
+      return Object.values(searchableFields).some((value) =>
+        value.toLowerCase().includes(query)
       );
     });
   }, [movies, searchQuery]);
@@ -122,7 +117,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                     {label}
                   </TableHeader>
                 ))}
-                <th className="border border-gray-300 p-2 text-left dark:border-gray-600">
+                <th className="border border-gray-300 p-2 text-left text-sm sm:text-base dark:border-gray-600">
                   Actions
                 </th>
               </tr>
@@ -134,31 +129,32 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                   <TableCell>{formatDate(movie.release_date)}</TableCell>
                   <TableCell>⭐{movie.vote_average.toFixed(1)} </TableCell>
                   <TableCell>{Math.floor(movie.popularity)}</TableCell>
-                  <TableCell>
-                    <span className="bg-red-">
-                      {movie.original_language.toUpperCase()}
-                    </span>
-                  </TableCell>
+                  <TableCell>{movie.original_language.toUpperCase()}</TableCell>
 
-                  <TableCell>
-                    <ActionButton
-                      variant="view"
-                      onClick={() => navigate(`/movie/${movie.id}`)}
-                    >
-                      <Eye className="mr-1 inline h-3 w-3" />
-                      View
-                    </ActionButton>
-                    <ActionButton variant="edit" onClick={() => onEdit(movie)}>
-                      <Edit className="mr-1 inline h-3 w-3" />
-                      Edit
-                    </ActionButton>
-                    <ActionButton
-                      variant="delete"
-                      onClick={() => onDelete(movie.id)}
-                    >
-                      <Trash2 className="mr-1 inline h-3 w-3" />
-                      Delete
-                    </ActionButton>
+                  <TableCell className="align-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <ActionButton
+                        variant="view"
+                        onClick={() => navigate(`/movie/${movie.id}`)}
+                      >
+                        <Eye className="mr-1 inline h-3 w-3" />
+                        View
+                      </ActionButton>
+                      <ActionButton
+                        variant="edit"
+                        onClick={() => onEdit(movie)}
+                      >
+                        <Edit className="mr-1 inline h-3 w-3" />
+                        Edit
+                      </ActionButton>
+                      <ActionButton
+                        variant="delete"
+                        onClick={() => onDelete(movie.id)}
+                      >
+                        <Trash2 className="mr-1 inline h-3 w-3" />
+                        Delete
+                      </ActionButton>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

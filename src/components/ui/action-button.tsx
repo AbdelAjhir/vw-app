@@ -14,7 +14,7 @@ export const ActionButton = ({
   className = "",
 }: ActionButtonProps) => {
   const baseClasses =
-    "mr-2 rounded px-2 py-1 text-white transition-colors cursor-pointer";
+    "mr-2 rounded px-2 py-1 text-white transition-colors cursor-pointer flex items-center";
 
   const variantClasses = {
     view: "bg-green-500 hover:bg-green-600",
