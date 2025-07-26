@@ -5,7 +5,9 @@ test("app loads and simple table displays movies", async ({ page }) => {
 
   await expect(page).toHaveTitle("VW DIGITAL:HUB Frontend technical test");
 
-  await expect(page.getByText("Simple Movies Table")).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Simple Movie Table" })
+  ).toBeVisible();
 
   await expect(
     page.getByPlaceholder(

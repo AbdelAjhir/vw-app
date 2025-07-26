@@ -98,7 +98,7 @@ const SimpleMovieTableContainer = () => {
       {/* Header */}
       <SectionHeader
         description="Basic HTML table with client-side search and sorting"
-        title="Simple Table"
+        title="Simple Movie Table"
         onAddClick={handleAddMovie}
       />
 
