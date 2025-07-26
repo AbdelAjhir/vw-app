@@ -9,16 +9,9 @@ import { SearchBar } from "@/components/ui/search-bar";
 import { TableCell } from "@/components/ui/table-cell";
 import { TableHeader } from "@/components/ui/table-header";
 import { TableRow } from "@/components/ui/table-row";
+import { TABLE_COLUMNS } from "@/constants/table";
 import { formatDate } from "@/helpers";
 import type { Movie } from "@/types/movie";
-
-const TABLE_COLUMNS = [
-  { field: "title", label: "Title" },
-  { field: "release_date", label: "Release Date" },
-  { field: "vote_average", label: "Rating" },
-  { field: "popularity", label: "Popularity" },
-  { field: "original_language", label: "Language" },
-] as const;
 
 interface MovieTableProps {
   movies: Movie[];
@@ -117,7 +110,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                     {label}
                   </TableHeader>
                 ))}
-                <th className="border border-gray-300 p-2 text-left text-sm sm:text-base dark:border-gray-600">
+                <th className="border border-gray-300 p-2 text-center text-sm sm:text-base dark:border-gray-600">
                   Actions
                 </th>
               </tr>
