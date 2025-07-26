@@ -12,11 +12,20 @@ export const NavigationButtons = ({
   const navigate = useNavigate();
 
   return (
-    <div className={`space-x-4 ${className}`}>
-      <Button onClick={() => navigate(-1)}>Go Back</Button>
-      <Button variant="outline" onClick={() => navigate("/")}>
+    <nav aria-label="Navigation" className={`space-x-4 ${className}`}>
+      <Button
+        aria-label="Go back to previous page"
+        onClick={() => navigate(-1)}
+      >
+        Go Back
+      </Button>
+      <Button
+        aria-label="Go to home page"
+        variant="outline"
+        onClick={() => navigate("/")}
+      >
         Go Home
       </Button>
-    </div>
+    </nav>
   );
 };

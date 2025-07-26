@@ -4,8 +4,13 @@ import { NavigationButtons } from "@/components/ui/navigation-buttons";
 import { Spinner } from "@/components/ui/spinner";
 
 export const LoadingState = () => (
-  <div className="flex items-center justify-center p-8">
+  <div
+    aria-label="Loading movies"
+    aria-live="polite"
+    className="flex items-center justify-center p-8"
+  >
     <Spinner />
+    <span className="sr-only">Loading movies...</span>
   </div>
 );
 
@@ -16,9 +21,16 @@ interface ErrorStateProps {
 export const ErrorState = ({
   message = "Error loading movies. Please try again.",
 }: ErrorStateProps) => (
-  <div className="flex items-center justify-center p-8">
+  <div
+    aria-live="assertive"
+    className="flex items-center justify-center p-8"
+    role="alert"
+  >
     <div className="text-center">
-      <AlertTriangle className="mx-auto mb-4 h-12 w-12 text-red-500" />
+      <AlertTriangle
+        aria-hidden="true"
+        className="mx-auto mb-4 h-12 w-12 text-red-500"
+      />
       <p className="text-lg text-red-500">{message}</p>
     </div>
   </div>
@@ -36,7 +48,10 @@ export const NotFoundState = ({
   return (
     <div className="flex min-h-[400px] flex-col items-center justify-center space-y-4">
       <div className="rounded-full bg-gray-100 p-4 dark:bg-gray-800">
-        <Search className="h-8 w-8 text-gray-500 dark:text-gray-400" />
+        <Search
+          aria-hidden="true"
+          className="h-8 w-8 text-gray-500 dark:text-gray-400"
+        />
       </div>
       <div className="text-center">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">

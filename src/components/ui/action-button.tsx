@@ -17,9 +17,9 @@ export const ActionButton = ({
     "mr-2 rounded px-2 py-1 text-white transition-colors cursor-pointer flex items-center";
 
   const variantClasses = {
-    view: "bg-green-500 hover:bg-green-600",
-    edit: "bg-blue-500 hover:bg-blue-600",
-    delete: "bg-red-500 hover:bg-red-600",
+    view: "bg-green-700 hover:bg-green-800",
+    edit: "bg-blue-700 hover:bg-blue-800",
+    delete: "bg-red-700 hover:bg-red-800",
   };
 
   return (

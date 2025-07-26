@@ -10,11 +10,12 @@ const Header = () => {
   return (
     <header className="container mx-auto flex items-center justify-between border-b px-3 py-3">
       <div className="flex items-center gap-6">
-        <Link to="/">
-          <Film className="h-8 w-8 lg:h-10 lg:w-10" />
+        <Link aria-label="Go to home page" to="/">
+          <Film aria-hidden="true" className="h-8 w-8 lg:h-10 lg:w-10" />
         </Link>
-        <nav className="flex items-center gap-4">
+        <nav aria-label="Main navigation" className="flex items-center gap-4">
           <Link
+            aria-current={location.pathname === "/" ? "page" : undefined}
             className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               location.pathname === "/"
                 ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
@@ -25,6 +26,9 @@ const Header = () => {
             Simple Table
           </Link>
           <Link
+            aria-current={
+              location.pathname === "/advanced" ? "page" : undefined
+            }
             className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               location.pathname === "/advanced"
                 ? "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300"
