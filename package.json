@@ -26,7 +26,7 @@
     "fix:all": "npm run format:fix && npm run lint:fix",
     "validate": "npm run check:all && npm run build",
     "preview": "vite preview",
-    "api": "json-server --watch db.json --port 3001"
+    "api": "json-server --watch ./api-server/db.json --port 3001"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
@@ -44,6 +44,7 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.7.0",
+    "react-toastify": "^11.0.5",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11"
   },

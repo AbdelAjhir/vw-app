@@ -386,22 +386,6 @@
     },
     {
       "adult": false,
-      "backdrop_path": "/wYbOd1YdpDonQUHwRCTCY2grSq4.jpg",
-      "genre_ids": [16, 14, 12],
-      "id": 615453,
-      "original_language": "zh",
-      "original_title": "哪吒之魔童降世",
-      "overview": "A young boy is born as the reincarnation of a demonic power, into a society that hates and fears him. Destined by prophecy to bring destruction to the world, Nezha must choose between good and evil to see if he can change his fate.",
-      "popularity": 106.2337,
-      "poster_path": "/phM9bb6s9c60LA8qwsdk7U1N2cS.jpg",
-      "release_date": "2019-07-26",
-      "title": "Ne Zha",
-      "video": false,
-      "vote_average": 7.946,
-      "vote_count": 566
-    },
-    {
-      "adult": false,
       "backdrop_path": "/iHHWF01W2vNpjI8UzWh2F7tJEZp.jpg",
       "genre_ids": [28, 18],
       "id": 1246369,
@@ -495,22 +479,6 @@
       "video": false,
       "vote_average": 7.175,
       "vote_count": 77
-    },
-    {
-      "adult": false,
-      "backdrop_path": "/upOoRdV3pQmMqShMyfDYSiEwbm1.jpg",
-      "genre_ids": [53, 27],
-      "id": 1275003,
-      "original_language": "en",
-      "original_title": "Spirit in the Blood",
-      "overview": "After a young girl is found dead in a secluded religious mountain community, a pack of teenage girls decide to fight against the evil spirits they believe killed her by embracing their own dark nature.",
-      "popularity": 91.5813,
-      "poster_path": "/1rEGnHwe4BqiARrjzcan6tmIisK.jpg",
-      "release_date": "2024-11-07",
-      "title": "Spirit in the Blood",
-      "video": false,
-      "vote_average": 4.15,
-      "vote_count": 10
     },
     {
       "adult": false,

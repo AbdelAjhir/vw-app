@@ -1,8 +1,10 @@
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 import { ThemeProvider } from "next-themes";
 import { createRoot } from "react-dom/client";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import Router from "./router";
 import { store } from "./store";
@@ -17,6 +19,18 @@ createRoot(document.getElementById("root")!).render(
       defaultTheme="system"
     >
       <Router />
+      <ToastContainer
+        closeOnClick
+        draggable
+        pauseOnFocusLoss
+        pauseOnHover
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        position="top-right"
+        rtl={false}
+        theme="light"
+      />
     </ThemeProvider>
   </Provider>
 );

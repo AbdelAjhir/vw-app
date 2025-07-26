@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import MovieForm from "@/components/MovieForm/MovieForm";
 import { LoadingState, ErrorState } from "@/components/ui/loading-error-states";
 import { SectionHeader } from "@/components/ui/section-header";
+import { showErrorToast, showSuccessToast } from "@/helpers";
 import {
   useGetMoviesQuery,
   useCreateMovieMutation,
@@ -33,16 +34,6 @@ const SimpleMovieTableContainer = () => {
   const [updateMovie, { isLoading: isUpdating }] = useUpdateMovieMutation();
   const [deleteMovie] = useDeleteMovieMutation();
 
-  // Local state for movies
-  const [localMovies, setLocalMovies] = useState<Movie[]>([]);
-
-  // Update local movies when API data changes
-  useEffect(() => {
-    if (moviesResponse?.data) {
-      setLocalMovies(moviesResponse.data);
-    }
-  }, [moviesResponse?.data]);
-
   // Event handlers
   const handleAddMovie = () => {
     setEditingMovie(null);
@@ -54,15 +45,14 @@ const SimpleMovieTableContainer = () => {
     setShowForm(true);
   };
 
-  const handleDeleteMovie = async (movieId: number) => {
+  const handleDeleteMovie = async (movieId: number, movieTitle: string) => {
     if (window.confirm("Are you sure you want to delete this movie?")) {
       try {
         await deleteMovie(movieId).unwrap();
-        // Update local state immediately
-        setLocalMovies((prev) => prev.filter((m) => m.id !== movieId));
+        showSuccessToast("deleted", movieTitle);
       } catch (error) {
         console.error("Failed to delete movie:", error);
-        alert("Failed to delete movie. Please try again.");
+        showErrorToast("delete");
       }
     }
   };
@@ -70,24 +60,20 @@ const SimpleMovieTableContainer = () => {
   const handleSubmitMovie = async (movieData: Omit<Movie, "id">) => {
     try {
       if (editingMovie) {
-        const result = await updateMovie({
+        await updateMovie({
           id: editingMovie.id,
           movie: movieData,
         }).unwrap();
-        // Update local state with the updated movie
-        setLocalMovies((prev) =>
-          prev.map((m) => (m.id === editingMovie.id ? result : m))
-        );
+        showSuccessToast("updated", movieData.title);
       } else {
-        const result = await createMovie(movieData).unwrap();
-        // Add new movie to local state
-        setLocalMovies((prev) => [result, ...prev]);
+        await createMovie(movieData).unwrap();
+        showSuccessToast("added", movieData.title);
       }
       setShowForm(false);
       setEditingMovie(null);
     } catch (error) {
       console.error("Failed to save movie:", error);
-      alert("Failed to save movie. Please try again.");
+      showErrorToast("save");
     }
   };
 
@@ -111,14 +97,14 @@ const SimpleMovieTableContainer = () => {
     <div className="container mx-auto px-3 py-10">
       {/* Header */}
       <SectionHeader
-        description="Client side table with global search and column sorting"
-        title="Simple Movies Table"
+        description="Basic HTML table with client-side search and sorting"
+        title="Simple Table"
         onAddClick={handleAddMovie}
       />
 
       {/* Simple Table */}
       <SimpleMovieTable
-        movies={localMovies}
+        movies={moviesResponse?.data || []}
         onDelete={handleDeleteMovie}
         onEdit={handleEditMovie}
       />

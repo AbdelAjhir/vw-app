@@ -16,7 +16,7 @@ import type { Movie } from "@/types/movie";
 interface MovieTableProps {
   movies: Movie[];
   onEdit: (_movie: Movie) => void;
-  onDelete: (_movieId: number) => void;
+  onDelete: (_movieId: number, _movieTitle: string) => void;
 }
 
 const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
@@ -154,7 +154,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                       <ActionButton
                         aria-label={`Delete ${movie.title}`}
                         variant="delete"
-                        onClick={() => onDelete(movie.id)}
+                        onClick={() => onDelete(movie.id, movie.title)}
                       >
                         <Trash2 className="mr-1 inline h-3 w-3" />
                         Delete
