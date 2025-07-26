@@ -23,7 +23,7 @@ import {
 
 interface ColumnsProps {
   onEdit: (_movie: Movie) => void;
-  onDelete: (_movieId: number) => void;
+  onDelete: (_movieId: number, _movieTitle: string) => void;
   onView: (_movieId: number) => void;
 }
 
@@ -121,7 +121,7 @@ export const createColumns = ({
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer text-red-600 hover:text-red-500 dark:text-red-600 dark:hover:text-red-500"
-              onClick={() => onDelete(movie.id)}
+              onClick={() => onDelete(movie.id, movie.title)}
             >
               <Trash2 className="mr-2 h-4 w-4" />
               Delete Movie

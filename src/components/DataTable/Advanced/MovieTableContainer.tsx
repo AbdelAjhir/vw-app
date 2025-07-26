@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MovieForm from "@/components/MovieForm/MovieForm";
 import { LoadingState, ErrorState } from "@/components/ui/loading-error-states";
 import { SectionHeader } from "@/components/ui/section-header";
+import { showErrorToast, showSuccessToast } from "@/helpers";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   useGetMoviesQuery,
@@ -27,6 +28,8 @@ const AdvancedMovieTableContainer = () => {
   // Table state
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
+
+  // Search and sort state
   const [searchQuery, setSearchQuery] = useState("");
   const [sortField, setSortField] = useState("");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
@@ -78,13 +81,14 @@ const AdvancedMovieTableContainer = () => {
     setShowForm(true);
   };
 
-  const handleDeleteMovie = async (movieId: number) => {
+  const handleDeleteMovie = async (movieId: number, movieTitle: string) => {
     if (window.confirm("Are you sure you want to delete this movie?")) {
       try {
         await deleteMovie(movieId).unwrap();
+        showSuccessToast("deleted", movieTitle);
       } catch (error) {
         console.error("Failed to delete movie:", error);
-        alert("Failed to delete movie. Please try again.");
+        showErrorToast("delete");
       }
     }
   };
@@ -93,14 +97,16 @@ const AdvancedMovieTableContainer = () => {
     try {
       if (editingMovie) {
         await updateMovie({ id: editingMovie.id, movie: movieData }).unwrap();
+        showSuccessToast("updated", movieData.title);
       } else {
         await createMovie(movieData).unwrap();
+        showSuccessToast("added", movieData.title);
       }
       setShowForm(false);
       setEditingMovie(null);
     } catch (error) {
       console.error("Failed to save movie:", error);
-      alert("Failed to save movie. Please try again.");
+      showErrorToast("save");
     }
   };
 
@@ -148,8 +154,8 @@ const AdvancedMovieTableContainer = () => {
     <div className="container mx-auto px-3 py-10">
       {/* Header */}
       <SectionHeader
-        description="Server side table with pagination, sorting, and debounced search (REST API + TanStack Table)"
-        title="Advanced Movies Table"
+        description="TanStack Table with server-side pagination, sorting, and filtering"
+        title="Advanced Table"
         onAddClick={handleAddMovie}
       />
 
