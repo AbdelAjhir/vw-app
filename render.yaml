@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: movie-api-server
+    runtime: node
+    plan: free
+    rootDir: api-server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    healthCheckPath: /movies
+    autoDeploy: true
