@@ -155,7 +155,7 @@ const AdvancedMovieTableContainer = () => {
       {/* Header */}
       <SectionHeader
         description="TanStack Table with server-side pagination, sorting, and filtering"
-        title="Advanced Table"
+        title="Advanced Movie Table"
         onAddClick={handleAddMovie}
       />
 
