@@ -20,12 +20,42 @@ export const TableHeader = ({
   const baseClasses =
     "text-sm sm:text-base cursor-pointer border border-gray-300 p-2 text-left transition-colors hover:bg-gray-200 dark:border-gray-600 dark:hover:bg-gray-700";
 
+  const isSortable = !!onClick;
+  const isSorted = sortField && currentSortField === sortField;
+
+  const sortDirection = isSorted ? sortOrder : undefined;
+  const ariaSort =
+    sortDirection === "asc"
+      ? "ascending"
+      : sortDirection === "desc"
+        ? "descending"
+        : "none";
+
   return (
-    <th className={`${baseClasses} ${className}`} onClick={onClick}>
+    <th
+      aria-sort={isSortable ? ariaSort : undefined}
+      className={`${baseClasses} ${className}`}
+      scope="col"
+      tabIndex={isSortable ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={
+        isSortable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick?.();
+              }
+            }
+          : undefined
+      }
+    >
       <div className="flex items-center gap-1">
         {children}
-        {sortField && currentSortField === sortField && (
-          <span className="text-blue-600 dark:text-blue-400">
+        {isSorted && (
+          <span
+            aria-label={`Sorted ${sortOrder === "asc" ? "ascending" : "descending"}`}
+            className="text-blue-600 dark:text-blue-400"
+          >
             {sortOrder === "asc" ? "↑" : "↓"}
           </span>
         )}

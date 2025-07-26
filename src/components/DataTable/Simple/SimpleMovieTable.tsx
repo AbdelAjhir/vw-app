@@ -96,7 +96,13 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
       {/* Simple HTML Table */}
       <div className="rounded-md border border-gray-300 dark:border-gray-600">
         <div className="overflow-auto">
-          <table className="w-full min-w-[800px] border-collapse">
+          <table
+            aria-label="Movies table"
+            className="w-full min-w-[800px] border-collapse"
+          >
+            <caption className="sr-only">
+              Movies table with sorting and search functionality
+            </caption>
             <thead>
               <tr className="bg-gray-100 dark:bg-gray-800">
                 {TABLE_COLUMNS.map(({ field, label }) => (
@@ -110,7 +116,10 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                     {label}
                   </TableHeader>
                 ))}
-                <th className="border border-gray-300 p-2 text-center text-sm sm:text-base dark:border-gray-600">
+                <th
+                  className="border border-gray-300 p-2 text-center text-sm sm:text-base dark:border-gray-600"
+                  scope="col"
+                >
                   Actions
                 </th>
               </tr>
@@ -127,6 +136,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                   <TableCell className="align-center">
                     <div className="flex items-center justify-center gap-2">
                       <ActionButton
+                        aria-label={`View details for ${movie.title}`}
                         variant="view"
                         onClick={() => navigate(`/movie/${movie.id}`)}
                       >
@@ -134,6 +144,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                         View
                       </ActionButton>
                       <ActionButton
+                        aria-label={`Edit ${movie.title}`}
                         variant="edit"
                         onClick={() => onEdit(movie)}
                       >
@@ -141,6 +152,7 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
                         Edit
                       </ActionButton>
                       <ActionButton
+                        aria-label={`Delete ${movie.title}`}
                         variant="delete"
                         onClick={() => onDelete(movie.id)}
                       >
@@ -158,7 +170,10 @@ const SimpleMovieTable = ({ movies, onEdit, onDelete }: MovieTableProps) => {
 
       {/* No Results */}
       {sortedMovies.length === 0 && searchQuery && (
-        <div className="py-8 text-center text-gray-500 dark:text-gray-400">
+        <div
+          aria-live="polite"
+          className="py-8 text-center text-gray-500 dark:text-gray-400"
+        >
           No results found.
         </div>
       )}

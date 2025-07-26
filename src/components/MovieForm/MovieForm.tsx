@@ -141,8 +141,15 @@ const MovieForm = ({
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-medium">Title</label>
+              <label
+                className="mb-2 block text-sm font-medium"
+                htmlFor="movie-title"
+              >
+                Title
+              </label>
               <Input
+                aria-describedby={errors.title ? "title-error" : undefined}
+                id="movie-title"
                 placeholder="Movie title"
                 value={formData.title}
                 onChange={(e) =>
@@ -150,15 +157,25 @@ const MovieForm = ({
                 }
               />
               {errors.title && (
-                <p className="mt-1 text-sm text-red-500">{errors.title}</p>
+                <p
+                  aria-live="polite"
+                  className="mt-1 text-sm text-red-500"
+                  id="title-error"
+                >
+                  {errors.title}
+                </p>
               )}
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium">
+              <label
+                className="mb-2 block text-sm font-medium"
+                htmlFor="movie-original-title"
+              >
                 Original Title
               </label>
               <Input
+                id="movie-original-title"
                 placeholder="Original title"
                 value={formData.original_title}
                 onChange={(e) =>
@@ -169,9 +186,16 @@ const MovieForm = ({
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium">Overview</label>
+            <label
+              className="mb-2 block text-sm font-medium"
+              htmlFor="movie-overview"
+            >
+              Overview
+            </label>
             <textarea
+              aria-describedby={errors.overview ? "overview-error" : undefined}
               className="h-24 w-full resize-none rounded-md border border-gray-300 p-3"
+              id="movie-overview"
               placeholder="Movie overview"
               value={formData.overview}
               onChange={(e) =>
@@ -179,16 +203,29 @@ const MovieForm = ({
               }
             />
             {errors.overview && (
-              <p className="mt-1 text-sm text-red-500">{errors.overview}</p>
+              <p
+                aria-live="polite"
+                className="mt-1 text-sm text-red-500"
+                id="overview-error"
+              >
+                {errors.overview}
+              </p>
             )}
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <div>
-              <label className="mb-2 block text-sm font-medium">
+              <label
+                className="mb-2 block text-sm font-medium"
+                htmlFor="movie-release-date"
+              >
                 Release Date
               </label>
               <Input
+                aria-describedby={
+                  errors.release_date ? "release-date-error" : undefined
+                }
+                id="movie-release-date"
                 type="date"
                 value={formData.release_date}
                 onChange={(e) =>
@@ -196,15 +233,28 @@ const MovieForm = ({
                 }
               />
               {errors.release_date && (
-                <p className="mt-1 text-sm text-red-500">
+                <p
+                  aria-live="polite"
+                  className="mt-1 text-sm text-red-500"
+                  id="release-date-error"
+                >
                   {errors.release_date}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium">Rating</label>
+              <label
+                className="mb-2 block text-sm font-medium"
+                htmlFor="movie-rating"
+              >
+                Rating
+              </label>
               <Input
+                aria-describedby={
+                  errors.vote_average ? "rating-error" : undefined
+                }
+                id="movie-rating"
                 placeholder="0.0"
                 step="0.1"
                 type="number"
@@ -214,17 +264,28 @@ const MovieForm = ({
                 }
               />
               {errors.vote_average && (
-                <p className="mt-1 text-sm text-red-500">
+                <p
+                  aria-live="polite"
+                  className="mt-1 text-sm text-red-500"
+                  id="rating-error"
+                >
                   {errors.vote_average}
                 </p>
               )}
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-medium">
+              <label
+                className="mb-2 block text-sm font-medium"
+                htmlFor="movie-popularity"
+              >
                 Popularity
               </label>
               <Input
+                aria-describedby={
+                  errors.popularity ? "popularity-error" : undefined
+                }
+                id="movie-popularity"
                 placeholder="100"
                 type="number"
                 value={formData.popularity}
@@ -233,15 +294,30 @@ const MovieForm = ({
                 }
               />
               {errors.popularity && (
-                <p className="mt-1 text-sm text-red-500">{errors.popularity}</p>
+                <p
+                  aria-live="polite"
+                  className="mt-1 text-sm text-red-500"
+                  id="popularity-error"
+                >
+                  {errors.popularity}
+                </p>
               )}
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-medium">Language</label>
+              <label
+                className="mb-2 block text-sm font-medium"
+                htmlFor="movie-language"
+              >
+                Language
+              </label>
               <Input
+                aria-describedby={
+                  errors.original_language ? "language-error" : undefined
+                }
+                id="movie-language"
                 maxLength={2}
                 placeholder="en"
                 value={formData.original_language}
@@ -253,7 +329,11 @@ const MovieForm = ({
                 }
               />
               {errors.original_language && (
-                <p className="mt-1 text-sm text-red-500">
+                <p
+                  aria-live="polite"
+                  className="mt-1 text-sm text-red-500"
+                  id="language-error"
+                >
                   {errors.original_language}
                 </p>
               )}
@@ -264,6 +344,7 @@ const MovieForm = ({
                 <input
                   checked={formData.adult}
                   className="rounded"
+                  id="movie-adult"
                   type="checkbox"
                   onChange={(e) =>
                     setFormData({ ...formData, adult: e.target.checked })
@@ -276,6 +357,7 @@ const MovieForm = ({
                 <input
                   checked={formData.video}
                   className="rounded"
+                  id="movie-video"
                   type="checkbox"
                   onChange={(e) =>
                     setFormData({ ...formData, video: e.target.checked })
