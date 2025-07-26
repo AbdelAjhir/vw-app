@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TABLE_COLUMNS } from "@/constants/table";
 import { formatDate } from "@/helpers";
 import type { Movie } from "@/types/movie";
 
@@ -34,7 +35,9 @@ export const createColumns = ({
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <SortableHeader column={column}>Title</SortableHeader>
+      <SortableHeader column={column}>
+        {TABLE_COLUMNS.find((col) => col.field === "title")?.label}
+      </SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="font-medium">{row.getValue("title")}</div>
@@ -43,7 +46,9 @@ export const createColumns = ({
   {
     accessorKey: "release_date",
     header: ({ column }) => (
-      <SortableHeader column={column}>Release Date</SortableHeader>
+      <SortableHeader column={column}>
+        {TABLE_COLUMNS.find((col) => col.field === "release_date")?.label}
+      </SortableHeader>
     ),
     cell: ({ row }) => (
       <DateCell value={formatDate(row.getValue("release_date"))} />
@@ -52,7 +57,9 @@ export const createColumns = ({
   {
     accessorKey: "vote_average",
     header: ({ column }) => (
-      <SortableHeader column={column}>Rating</SortableHeader>
+      <SortableHeader column={column}>
+        {TABLE_COLUMNS.find((col) => col.field === "vote_average")?.label}
+      </SortableHeader>
     ),
     cell: ({ row }) => (
       <RatingCell value={parseFloat(row.getValue("vote_average"))} />
@@ -61,7 +68,9 @@ export const createColumns = ({
   {
     accessorKey: "popularity",
     header: ({ column }) => (
-      <SortableHeader column={column}>Popularity</SortableHeader>
+      <SortableHeader column={column}>
+        {TABLE_COLUMNS.find((col) => col.field === "popularity")?.label}
+      </SortableHeader>
     ),
     cell: ({ row }) => (
       <div className="font-medium">
@@ -72,7 +81,9 @@ export const createColumns = ({
   {
     accessorKey: "original_language",
     header: ({ column }) => (
-      <SortableHeader column={column}>Language</SortableHeader>
+      <SortableHeader column={column}>
+        {TABLE_COLUMNS.find((col) => col.field === "original_language")?.label}
+      </SortableHeader>
     ),
     cell: ({ row }) => (
       <LanguageCell value={row.getValue("original_language")} />
