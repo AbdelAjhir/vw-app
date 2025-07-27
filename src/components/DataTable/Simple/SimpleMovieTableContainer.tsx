@@ -97,7 +97,7 @@ const SimpleMovieTableContainer = () => {
     <div className="container mx-auto px-3 py-10">
       {/* Header */}
       <SectionHeader
-        description="Basic HTML table with client-side search and sorting"
+        description="Basic HTML table with client side search and sorting"
         title="Simple Movie Table"
         onAddClick={handleAddMovie}
       />

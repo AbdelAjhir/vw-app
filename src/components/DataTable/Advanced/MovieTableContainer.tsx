@@ -154,7 +154,7 @@ const AdvancedMovieTableContainer = () => {
     <div className="container mx-auto px-3 py-10">
       {/* Header */}
       <SectionHeader
-        description="TanStack Table with server-side pagination, sorting, and filtering"
+        description="TanStack Table with server side pagination, sorting, and filtering"
         title="Advanced Movie Table"
         onAddClick={handleAddMovie}
       />

@@ -14,7 +14,7 @@ const ThemeToggle = () => {
     <div className="flex items-center gap-2">
       <Button
         aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-        className="h-9 w-9 cursor-pointer p-0"
+        className="h-9 cursor-pointer !p-0"
         size="sm"
         variant="ghost"
         onClick={toggleTheme}
